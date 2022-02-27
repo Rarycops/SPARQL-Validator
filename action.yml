@@ -1,10 +1,5 @@
 name: 'sparql-validator'
-description: 'validates a set of SPARQL querryes'
-
-inputs:
-  file:
-    description: 'this is the SPARQL file'
-    required: false  
+description: 'validates & run a SPARQL file'
 
 outputs:
   querry_output:
