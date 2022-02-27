@@ -41,4 +41,4 @@ jobs:
         uses: ./
         id: 'sparql-validator'
         with:
-          files: ${{needs.changedfiles.outputs.ts}}
+          files: ${{needs.changedfiles.outputs.all}}
