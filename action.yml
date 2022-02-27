@@ -2,7 +2,7 @@ name: 'sparql-validator'
 description: 'validates & run a SPARQL file'
 
 inputs:
-  file:
+  files:
     description: 'this is the changed files'
     required: true  
 
