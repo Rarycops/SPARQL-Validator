@@ -1,0 +1,15 @@
+name: 'sparql-validator'
+description: 'validates a set of SPARQL querryes'
+
+inputs:
+  file:
+    description: 'this is the SPARQL file'
+    required: false  
+
+outputs:
+  querry_output:
+    description: 'this is the output of the querrys performed by the input file'
+
+runs:
+  using: 'node16'
+  main: 'index.js'
