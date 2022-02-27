@@ -36,6 +36,17 @@ function main(){
                 console.log(file.filename, " is not a .sparql file");
             }
         }
+        await octokit.rest.issues.createComment({
+            owner,
+            repo,
+            issue_number: pr_number,
+            body: `
+                Pull Request #${pr_number} has been updated with: \n
+                - ${diffData.changes} changes \n
+                - ${diffData.additions} additions \n
+                - ${diffData.deletions} deletions \n
+            `
+        });
     }
     catch (error){
         core.setFailed(error.message);
