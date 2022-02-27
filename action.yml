@@ -4,6 +4,8 @@ description: 'validates & run a SPARQL file'
 outputs:
   querry_output:
     description: 'this is the output of the querrys performed by the input file'
+  time: 
+    description: 'The time of the action'
 
 runs:
   using: 'node16'
