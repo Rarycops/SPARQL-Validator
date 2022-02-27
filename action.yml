@@ -1,11 +1,14 @@
 name: 'sparql-validator'
 description: 'validates & run a SPARQL file'
 
+inputs:
+  file:
+    description: 'this is the changed files'
+    required: true  
+
 outputs:
   querry_output:
     description: 'this is the output of the querrys performed by the input file'
-  time: 
-    description: 'The time of the action'
 
 runs:
   using: 'node16'

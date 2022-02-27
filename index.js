@@ -4,7 +4,7 @@ const github = require('@actions/github');
 function main(){
     try {
         // take the input to the action
-        const file = core.getInput('file');
+        const files = core.getInput('files');
         
         // time of the action
         const time = (new Date()).toTimeString();
@@ -14,6 +14,7 @@ function main(){
         const payload = JSON.stringify(github.context.payload, undefined, 2)
         console.log(`The event payload: ${payload}`);
 
+        console.log(files);
     }
     catch (error){
         core.setFailed(error.message);
