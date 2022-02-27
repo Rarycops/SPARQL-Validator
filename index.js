@@ -6,12 +6,23 @@ function main(){
         // take the input to the action
         const file = core.getInput('file');
         
+        // time of the action
         const time = (new Date()).toTimeString();
         core.setOutput("time", time);
 
         // Get the JSON webhook payload for the event that triggered the workflow
         const payload = JSON.stringify(github.context.payload, undefined, 2)
         console.log(`The event payload: ${payload}`);
+
+        // Creating an instance of Octokit
+        const octokit = new github.getOctokit(token);
+
+        // fetch the list of files that have been changed
+        const { data: changedFiles } = await octokit.rest.pulls.listFiles({
+            owner,
+            repo,
+            pull_number: pr_number,
+        });
 
         // check if the file is a .sparql file
         for (const file of changedFiles) {
