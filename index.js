@@ -1,7 +1,7 @@
 const core =  require('@actions/core');
 const github = require('@actions/github');
 
-function main(){
+const main = async () =>{
     try {
         // take the input to the action
         const file = core.getInput('file');
