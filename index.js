@@ -39,17 +39,17 @@ async function main() {
         }, diffData);
         
         for (const file of changedFiles) {
+            console.log(file)
             const file_extension = file.filename.split('.').pop();
-            const file_url = file.raw_url;
-            console.log(file_url)
-            const request = https.get(file_url, (res) => {
-                /*
+            const contents_url = file.contents_url;
+            console.log(contents_url)
+            const contents_request = https.get(contents_url, (res) => {
                 if (res.statusCode !== 200) {
                     console.error(`Did not get an OK from the server. Code: ${res.statusCode}`);
                     res.resume();
                     return;
                 }
-                */
+
                 let data = '';
 
                 res.on('data', (chunk) => {
@@ -58,13 +58,14 @@ async function main() {
 
                 res.on('close', () => {
                     console.log('Retrieved all data');
-                    console.log(data);
+                    console.log(JSON.parse(data));
                 });
                 
                 request.on('error', (err) => {
                 console.error(`Encountered an error trying to make a request: ${err.message}`);
                 });
             });
+            console.log(contents_request)
         }
 
         // Creates a comment on the PR with the information compiled 
