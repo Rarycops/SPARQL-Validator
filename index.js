@@ -39,7 +39,7 @@ const main = async () => {
         
         for (const file of changedFiles) {
             const fileExtension = file.filename.split('.').pop();
-            console.log("bucle con file:: ", file)
+            console.log(file.data)
         }
 
         // Creates a comment on the PR with the information compiled 
