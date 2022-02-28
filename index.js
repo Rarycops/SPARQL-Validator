@@ -40,7 +40,7 @@ async function main() {
         
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
-            const file_url = file.raw_url.pop();
+            const file_url = file.raw_url;
             console.log(file_url)
             const request = https.get(file_url, (res) => {
                 if (res.statusCode !== 200) {
