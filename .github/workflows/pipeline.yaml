@@ -35,7 +35,7 @@ jobs:
         run: echo "The time was ${{ steps.sparql-validator.outputs.time }}"
 
       - name: Changed files
-        run: echo ${{needs.changedfiles.outputs.ts}}
+        run: echo ${{needs.changedfiles.outputs.all}}
       
       - name: sparql-validator
         uses: ./
