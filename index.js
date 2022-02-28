@@ -1,7 +1,8 @@
 const core =  require('@actions/core');
 const github = require('@actions/github');
+const https = require('https');
 
-const main = async () => {
+async function main() {
     try {
         // take the input token for the action
         const owner = core.getInput('owner', { required: true });
@@ -38,8 +39,30 @@ const main = async () => {
         }, diffData);
         
         for (const file of changedFiles) {
-            const fileExtension = file.filename.split('.').pop();
-            console.log(file.data)
+            const file_extension = file.filename.split('.').pop();
+            const file_url = file.raw_url.pop();
+            console.log(file_url)
+            const request = https.get(file_url, (res) => {
+                if (res.statusCode !== 200) {
+                    console.error(`Did not get an OK from the server. Code: ${res.statusCode}`);
+                    res.resume();
+                    return;
+                }
+                let data = '';
+
+                res.on('data', (chunk) => {
+                    data += chunk;
+                });
+
+                res.on('close', () => {
+                    console.log('Retrieved all data');
+                    console.log(data);
+                });
+                
+                request.on('error', (err) => {
+                console.error(`Encountered an error trying to make a request: ${err.message}`);
+                });
+            });
         }
 
         // Creates a comment on the PR with the information compiled 
@@ -59,6 +82,14 @@ const main = async () => {
     catch (error){
         core.setFailed(error.message);
     }
+}
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
 }
 
 main();
