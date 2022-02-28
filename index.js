@@ -21,12 +21,28 @@ const main = async () => {
             repo,
             pull_number: pr_number,
         });
+
+        // To get the data that is different
+        let diffData = {
+            additions: 0,
+            deletions: 0,
+            changes: 0
+        };
+
+        // Sum of all the additions, deletions and changes
+        diffData = changedFiles.reduce((acc, file) => {
+            acc.additions += file.additions;
+            acc.deletions += file.deletions;
+            acc.changes += file.changes;
+            return acc;
+        }, diffData);
         
         for (const file of changedFiles) {
             const fileExtension = file.filename.split('.').pop();
             console.log("bucle con file:: ", file)
         }
 
+        // Creates a comment on the PR with the information compiled 
         await octokit.rest.issues.createComment({
             owner,
             repo,
