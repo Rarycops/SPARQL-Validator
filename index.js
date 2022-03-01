@@ -22,44 +22,20 @@ async function main() {
             repo,
             pull_number: pr_number,
         });
-
-        // To get the data that is different
-        let diffData = {
-            additions: 0,
-            deletions: 0,
-            changes: 0
-        };
-
-        // Sum of all the additions, deletions and changes
-        diffData = changedFiles.reduce((acc, file) => {
-            acc.additions += file.additions;
-            acc.deletions += file.deletions;
-            acc.changes += file.changes;
-            return acc;
-        }, diffData);
         
         for (const file of changedFiles) {
             console.log(file)
             const file_extension = file.filename.split('.').pop();
-            const contents_url = file.raw_url;
-            console.log(contents_url)
-            const contents_request = await makeSynchronousRequest(contents_url);
-            console.log(contents_request)
+            
+            // if the file is a sparql file we start the validation
+            if (file_extension == 'sparql')
+            {
+                const contents_url = file.raw_url;
+                console.log(contents_url)
+                const contents_request = await makeSynchronousRequest(contents_url);
+                console.log(contents_request)
+            }
         }
-
-        // Creates a comment on the PR with the information compiled 
-        await octokit.rest.issues.createComment({
-            owner,
-            repo,
-            issue_number: pr_number,
-            body: `
-                Pull Request #${pr_number} has been updated with: \n
-                - ${diffData.changes} changes \n
-                - ${diffData.additions} additions \n
-                - ${diffData.deletions} deletions \n
-            `
-        });
-
     }
     catch (error){
         core.setFailed(error.message);
