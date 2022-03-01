@@ -24,16 +24,19 @@ async function main() {
         });
         
         for (const file of changedFiles) {
-            console.log(file)
             const file_extension = file.filename.split('.').pop();
             
             // if the file is a sparql file we start the validation
             if (file_extension == 'sparql')
             {
                 const contents_url = file.raw_url;
-                console.log(contents_url)
                 const contents_request = await makeSynchronousRequest(contents_url);
-                console.log(contents_request)
+                const validacion = validation(contents_request)
+                if (!validacion[0])
+                {
+                    core.setFailed(validacion[1])
+                    return;
+                }
             }
         }
     }
@@ -81,6 +84,10 @@ async function makeSynchronousRequest(url) {
 	catch(error) {
 		console.log(error);
 	}
+}
+
+function validation(contents_request) {
+    return [false, "final message error / success"];
 }
 
 main();
