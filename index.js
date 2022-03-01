@@ -1,6 +1,7 @@
 const core =  require('@actions/core');
 const github = require('@actions/github');
 const { http, https } = require('follow-redirects');
+const url = require('url');
 
 async function main() {
     try {
@@ -9,6 +10,11 @@ async function main() {
         const repo = core.getInput('repo', { required: true });
         const pr_number = core.getInput('pr_number', { required: true });
         const token = core.getInput('token', { required: true });
+        const default_graph_uri = core.getInput('default_graph_uri', { required: false });
+
+        if (typeof default_graph_uri !== 'undefined') {
+            default_graph_uri = `http://dbpedia.org`;
+        }
 
         // Instance of Octokit to call the API
         const octokit = new github.getOctokit(token);
@@ -31,12 +37,8 @@ async function main() {
             {
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
-                const validacion = validation(contents_request)
-                if (!validacion[0])
-                {
-                    core.setFailed(validacion[1])
-                    return;
-                }
+                // Validation of de file
+                const validacion = validation(default_graph_uri, contents_request);
             }
         }
     }
@@ -46,12 +48,50 @@ async function main() {
 }
 
 // function returns a Promise
-function getPromise(url) {
+function get_promise(url) {
 	return new Promise((resolve, reject) => {
 		https.get(url, (response) => {
             if (response.statusCode !== 200) {
-                    console.error(`Did not get an OK from the server. Code: ${res.statusCode}`);
-                    res.resume();
+                    core.setFailed(`Did not get an OK from the server. Code: ${response.statusCode}, from petition to: \n`, url);
+                    response.resume();
+                    return;
+            }
+            
+			let chunks_of_data = [];
+
+			response.on('data', (fragments) => {
+				chunks_of_data.push(fragments);
+			});
+
+			response.on('end', () => {
+				let response_body = Buffer.concat(chunks_of_data);
+				resolve(response_body.toString());
+			});
+
+			response.on('error', (error) => {
+				reject(error);
+			});
+		});
+	});
+}
+
+// function returns a Promise with a query from dBpedia
+function get_query(default_graph_uri, query) {
+	const requestUrl = url.parse(url.format({
+										protocol: 'https',
+										hostname: 'dbpedia.org',
+										pathname: '/sparql',
+										query: {
+											'default-graph-uri': default_graph_uri,
+											query: query
+										}
+									}));
+
+	return new Promise((resolve, reject) => {
+		https.get({hostname: requestUrl.hostname,path: requestUrl.path,}, (response) => {
+            if (response.statusCode !== 200) {
+                    core.setFailed(`Did not get an OK from the server. Code: ${response.statusCode}, from query: \n` + query);
+                    response.resume();
                     return;
             }
             
@@ -76,7 +116,7 @@ function getPromise(url) {
 // async function to make http request
 async function makeSynchronousRequest(url) {
 	try {
-		let http_promise = getPromise(url);
+		let http_promise = get_promise(url);
 		let response_body = await http_promise;
 
 		return response_body;
@@ -86,8 +126,25 @@ async function makeSynchronousRequest(url) {
 	}
 }
 
-function validation(contents_request) {
-    return [false, "final message error / success"];
+// async function to make http query request
+async function makeSynchronousqueryRequest(default_graph_uri, query) {
+	try {
+		let http_promise = get_query(default_graph_uri, query);
+		let response_body = await http_promise;
+
+		return response_body;
+	}
+	catch(error) {
+		console.log(error);
+	}
+}
+
+// Validates the file
+function validation(default_graph_uri, contents_request) {
+    /*
+    STUFF
+    */
+    const salida = makeSynchronousqueryRequest(default_graph_uri, contents_request)
 }
 
 main();
