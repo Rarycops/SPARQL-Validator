@@ -27,4 +27,6 @@ jobs:
       - name: Get the output 
         run: |
           echo "${{ steps.sparql-validator.outputs.results }}"
-          ls
+          mkdir sparql-validator-results
+          cd ./sparql-validator-results
+          echo ${{ github.actor.id }}
