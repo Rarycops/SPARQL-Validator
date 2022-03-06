@@ -53,9 +53,7 @@ async function main() {
 			owner,
 			repo,
 			issue_number: pr_number,
-			body: `
-				Pull Request #${pr_number} sparql results are: \n
-				` + response
+			body: response
     	});
 
 		if(error){
