@@ -41,11 +41,8 @@ async function main() {
 				const array_res = llamada.toString().split(" ");
 				 if (array_res[2] == 'Error'){
 					error = true;
-					response = response + llamada + ' \n\n';
 				}
-                else{
-					response = response  + '---\noutput: html_fragment\n---\n' + llamada + ' \n\n';
-				}
+				response = response + '```\n ' + llamada + ' \n```\n\n';
             }
         }
 
