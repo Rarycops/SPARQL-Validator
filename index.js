@@ -53,7 +53,7 @@ async function main() {
 			owner,
 			repo,
 			issue_number: pr_number,
-			body: response
+			body: `` + response + ``
     	});
 
 		if(error){
