@@ -23,3 +23,8 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get the output 
+        run: |
+          echo "${{ validate.sparql-validator.outputs.results }}"
+          ls
