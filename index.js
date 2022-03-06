@@ -31,7 +31,7 @@ async function main() {
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
 
-			response = response + '- the file with name: ' + file.filename + '\n	result:\n---\n'
+			response = response + '# the file with name: ' + file.filename + '\n	# result:\n---\n'
 
             // if the file is a sparql file we start the validation
             if (file_extension == 'sparql')
