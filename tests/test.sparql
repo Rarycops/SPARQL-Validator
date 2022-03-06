@@ -1,3 +1,1 @@
-this is a sparql file.
-test :).
-test :).
+select distinct ?Concept where {[] a ?Concept} LIMIT 100
