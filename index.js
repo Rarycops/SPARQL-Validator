@@ -34,18 +34,18 @@ async function main() {
 			response = response + '# The file with name: ' + file.filename + '\n---\n'
 
             // if the file is a sparql file we start the validation
-            if (file_extension == 'sparql')
-            {
+            if (file_extension == 'sparql'){
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
 				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request);
 				const array_res = llamada.toString().split(" ");
-				 if (array_res[2] == 'Error')
-                {
+				 if (array_res[2] == 'Error'){
 					error = true;
+					response = response + llamada + ' \n\n';
 				}
-                // Validation of de file
-                response = response + llamada + ' \n\n---\n';
+                else{
+					response = response  + '---\noutput: html_fragment\n---\n' + llamada + ' \n\n';
+				}
             }
         }
 
