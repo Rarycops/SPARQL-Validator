@@ -40,7 +40,7 @@ async function main() {
                 const contents_request = await makeSynchronousRequest(contents_url);
 				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request).toString();
 				const array_res = llamada.split(" ");
-				 if (arr_res[2] == 'Error')
+				 if (array_res[2] == 'Error')
                 {
 					error = true;
 				}
