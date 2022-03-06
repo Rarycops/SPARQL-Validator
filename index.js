@@ -55,14 +55,14 @@ async function main() {
 			issue_number: pr_number,
 			body: `
 				Pull Request #${pr_number} sparql results are: \n
-				` + response.toString()
+				` + response
     	});
 
 		if(error){
-			core.setFailed(response.toString());
+			core.setFailed(response);
 		}
 
-		core.setOutput('results', response.toString())
+		core.setOutput('results', response)
 
     }
     catch (error){
