@@ -31,7 +31,7 @@ async function main() {
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
 
-			response = response + '# the file with name: ' + file.filename + '\n---\n'
+			response = response + '# The file with name: ' + file.filename + '\n---\n'
 
             // if the file is a sparql file we start the validation
             if (file_extension == 'sparql')
@@ -45,7 +45,7 @@ async function main() {
 					error = true;
 				}
                 // Validation of de file
-                response = response + '# ' + llamada + '\n---\n';
+                response = response + '## ' + llamada + '\n---\n';
             }
         }
 
