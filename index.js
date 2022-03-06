@@ -60,8 +60,6 @@ async function main() {
 			core.setFailed(response);
 		}
 
-		core.setOutput('results', response)
-
     }
     catch (error){
         core.setFailed(error.message);

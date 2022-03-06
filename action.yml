@@ -18,10 +18,6 @@ inputs:
     description: 'The dBpedia uri that will be use for the querys'
     required: false 
 
-outputs:
-  results:
-    description: 'The results of the sparql querys'
-
 runs:
   using: 'node16'
   main: 'index.js'
