@@ -28,19 +28,33 @@ async function main() {
             repo,
             pull_number: pr_number,
         });
-        
+
+		var response = '';
+
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
-            
+
+			response = response + '- the file with name: ' + file.filename + '\n	result:\n---\n'
+
             // if the file is a sparql file we start the validation
             if (file_extension == 'sparql')
             {
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
                 // Validation of de file
-                const validacion = validation(default_graph_uri, contents_request);
+                response = response + makeSynchronousqueryRequest(default_graph_uri, contents_request) + '\n---\n';
             }
         }
+
+		await octokit.rest.issues.createComment({
+			owner,
+			repo,
+			issue_number: pr_number,
+			body: `
+				Pull Request #${pr_number} sparql results are: \n
+				` + response
+    	});
+
     }
     catch (error){
         core.setFailed(error.message);
@@ -89,7 +103,7 @@ function get_query(default_graph_uri, query) {
 
 	return new Promise((resolve, reject) => {
 		https.get({hostname: requestUrl.hostname,path: requestUrl.path,}, (response) => {
-            if (response.statusCode !== 200) {
+            if (response.statusCode !== 200 && response.statusCode !== 400) {
                     core.setFailed(`Did not get an OK from the server. Code: ${response.statusCode}, from query: \n` + query);
                     response.resume();
                     return;
@@ -137,14 +151,6 @@ async function makeSynchronousqueryRequest(default_graph_uri, query) {
 	catch(error) {
 		console.log(error);
 	}
-}
-
-// Validates the file
-function validation(default_graph_uri, contents_request) {
-    /*
-    STUFF
-    */
-    const salida = makeSynchronousqueryRequest(default_graph_uri, contents_request)
 }
 
 main();
