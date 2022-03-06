@@ -26,5 +26,5 @@ jobs:
 
       - name: Get the output 
         run: |
-          echo "${{ validate.sparql-validator.outputs.results }}"
+          echo "${{ steps.sparql-validator.outputs.results }}"
           ls
