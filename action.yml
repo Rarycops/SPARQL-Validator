@@ -15,8 +15,12 @@ inputs:
     description: 'The token to use to access the GitHub API'
     required: true 
   default_graph_uri:
-    description: 'the dBpedia uri that will be use for the querys'
+    description: 'The dBpedia uri that will be use for the querys'
     required: false 
+
+outputs:
+  results:
+    description: 'The results of the sparql querys'
 
 runs:
   using: 'node16'

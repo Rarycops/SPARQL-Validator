@@ -26,6 +26,7 @@ async function main() {
         });
 
 		let response = '';
+		let error = false;
 
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
@@ -37,13 +38,16 @@ async function main() {
             {
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
-				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request);
+				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request).toString();
+				const array_res = llamada.split(" ");
+				 if (arr_res[2] == 'Error')
+                {
+					error = true;
+				}
                 // Validation of de file
                 response = response + llamada + '\n---\n';
             }
         }
-		
-		console.log(response);
 
 		await octokit.rest.issues.createComment({
 			owner,
@@ -53,6 +57,12 @@ async function main() {
 				Pull Request #${pr_number} sparql results are: \n
 				` + response
     	});
+
+		if(error){
+			core.setFailed(response);
+		}
+
+		core.setOutput('results', response)
 
     }
     catch (error){
