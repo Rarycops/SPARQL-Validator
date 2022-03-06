@@ -38,8 +38,8 @@ async function main() {
             {
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
-				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request).toString();
-				const array_res = llamada.split(" ");
+				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request);
+				const array_res = llamada.toString().split(" ");
 				 if (array_res[2] == 'Error')
                 {
 					error = true;
@@ -55,14 +55,14 @@ async function main() {
 			issue_number: pr_number,
 			body: `
 				Pull Request #${pr_number} sparql results are: \n
-				` + response
+				` + response.toString()
     	});
 
 		if(error){
-			core.setFailed(response);
+			core.setFailed(response.toString());
 		}
 
-		core.setOutput('results', response)
+		core.setOutput('results', response.toString())
 
     }
     catch (error){
