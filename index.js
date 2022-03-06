@@ -25,7 +25,7 @@ async function main() {
             pull_number: pr_number,
         });
 
-		let response = '';
+		let response = '\n';
 		let error = false;
 
         for (const file of changedFiles) {
