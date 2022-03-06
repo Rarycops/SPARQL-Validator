@@ -14,9 +14,6 @@ jobs:
       
       - name: Checkout
         uses: actions/checkout@v2
-        
-      - name: Get the output time
-        run: echo "The time was ${{ steps.sparql-validator.outputs.time }}"
       
       - name: sparql-validator
         uses: ./

@@ -41,8 +41,9 @@ async function main() {
             {
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
+				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request);
                 // Validation of de file
-                response = response + makeSynchronousqueryRequest(default_graph_uri, contents_request) + '\n---\n';
+                response = response + llamada + '\n---\n';
             }
         }
 		console.log(response);
