@@ -42,8 +42,9 @@ async function main() {
                 response = response + llamada + '\n---\n';
             }
         }
+		
 		console.log(response);
-/*
+
 		await octokit.rest.issues.createComment({
 			owner,
 			repo,
@@ -52,7 +53,7 @@ async function main() {
 				Pull Request #${pr_number} sparql results are: \n
 				` + response
     	});
-*/
+
     }
     catch (error){
         core.setFailed(error.message);
