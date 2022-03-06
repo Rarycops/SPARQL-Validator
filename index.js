@@ -45,7 +45,7 @@ async function main() {
 					error = true;
 				}
                 // Validation of de file
-                response = response + llamada + ' \n\n';
+                response = response + llamada + ' \n\n---\n';
             }
         }
 
