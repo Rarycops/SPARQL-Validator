@@ -10,7 +10,7 @@ async function main() {
         const repo = core.getInput('repo', { required: true });
         const pr_number = core.getInput('pr_number', { required: true });
         const token = core.getInput('token', { required: true });
-        const default_graph_uri = core.getInput('default_graph_uri', { required: false });
+        let default_graph_uri = core.getInput('default_graph_uri', { required: false });
 
         if (typeof default_graph_uri !== 'undefined') {
             default_graph_uri = `http://dbpedia.org`;
@@ -18,10 +18,6 @@ async function main() {
 
         // Instance of Octokit to call the API
         const octokit = new github.getOctokit(token);
-        
-        // time of the action
-        const time = (new Date()).toTimeString();
-        core.setOutput("time", time);
 
         const { data: changedFiles } = await octokit.rest.pulls.listFiles({
             owner,
