@@ -29,7 +29,7 @@ async function main() {
             pull_number: pr_number,
         });
 
-		var response = '';
+		let response = '';
 
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
@@ -45,7 +45,8 @@ async function main() {
                 response = response + makeSynchronousqueryRequest(default_graph_uri, contents_request) + '\n---\n';
             }
         }
-
+		console.log(response);
+/*
 		await octokit.rest.issues.createComment({
 			owner,
 			repo,
@@ -54,7 +55,7 @@ async function main() {
 				Pull Request #${pr_number} sparql results are: \n
 				` + response
     	});
-
+*/
     }
     catch (error){
         core.setFailed(error.message);
