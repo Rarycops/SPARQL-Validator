@@ -27,6 +27,7 @@ async function main() {
 
 		let response = '';
 		let error = false;
+        let files = false;
 
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
@@ -35,6 +36,7 @@ async function main() {
 
             // if the file is a sparql file we start the validation
             if (file_extension == 'sparql'){
+                files = true;
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
 				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request);
@@ -45,17 +47,18 @@ async function main() {
 				response = response + '```\n ' + llamada + ' \n```\n\n';
             }
         }
+         if (files){
+            await octokit.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: pr_number,
+                body:  response 
+            });
 
-		await octokit.rest.issues.createComment({
-			owner,
-			repo,
-			issue_number: pr_number,
-			body:  response 
-    	});
-
-		if(error){
-			core.setFailed(response);
-		}
+            if(error){
+                core.setFailed(response);
+            }
+        }
 
     }
     catch (error){
