@@ -47,9 +47,6 @@ async function main() {
 		let err = false;
         let files = false;
 
-		// Creting the folther for the files
-		fs.mkdirSync('./SPARQL-Validator/' + actor, { recursive: true })
-
         for (const file of changedFiles) {
             const fle = file.filename.split('.');
 			const file_extension = fle.pop();
@@ -65,7 +62,10 @@ async function main() {
 				if (!path)
 					path = fle.join('/') + '-';
 				else
-					path = path + fle.pop() + '-';
+				{
+					fs.mkdirSync('./' + path + '/', { recursive: true })
+					path = path + '/' + fle.pop() + '-';
+				}
 
 				console.log(path);
 
