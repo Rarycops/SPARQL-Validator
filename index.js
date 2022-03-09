@@ -33,8 +33,6 @@ async function main() {
 				output_format = '.html';
 		}
 
-		console.log(format);
-
         // Instance of Octokit to call the API
         const octokit = new github.getOctokit(token);
 
@@ -49,15 +47,10 @@ async function main() {
         let files = false;
 
 		// Creting the folther for the files
-		fs.mkdirSync('./SPARQL-Validator', { recursive: true })
+		fs.mkdirSync('./SPARQL-Validator/' + actor, { recursive: true })
 
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
-
-			response = response + '# The file with name: ' + file.filename + '\n---\n'
-
-			console.log(file);
-
             // if the file is a sparql file we start the validation
             if (file_extension == 'sparql'){
                 files = true;
@@ -65,17 +58,19 @@ async function main() {
                 const contents_request = await makeSynchronousRequest(contents_url);
 				const llamada = await makeSynchronousqueryRequest(graph_uri, contents_request, format);
 				const array_res = llamada.toString().split(" ");
-				 if (array_res[2] == 'Error'){
+				
+				if (array_res[2] == 'Error'){
+					response = response + '# The file with name: ' + file.filename + '\n---\n' + '```\n ' + llamada + ' \n```\n\n';
 					error = true;
 				}
-				response = response + '```\n ' + llamada + ' \n```\n\n';
-				//Creating the file
-				fs.writeFile('./SPARQL-Validator/' + actor + '-' + file.filename.split('.')[0] + output_format, llamada, err => {
-					if (err) {
-						core.setFailed(error.message);
-					}
-				})
-
+				else{
+					//Creating the file
+					fs.writeFile('./SPARQL-Validator/' + actor + '/' + file.filename.split('.')[0] + output_format, llamada, err => {
+						if (err) {
+							core.setFailed(error.message);
+						}
+					})
+				}
             }
         }
          if (files){

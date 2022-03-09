@@ -29,5 +29,6 @@ jobs:
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
       
-      - run: ls 
-      - run: ls ./SPARQL-Validator/
+      - run: |
+            ls 
+            ls ./SPARQL-Validator/
