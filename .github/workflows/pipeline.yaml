@@ -11,6 +11,8 @@ jobs:
     steps:
 
       - run: npm i follow-redirects
+
+      - run: npm i fs
       
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,5 +25,9 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          actor: ${{ github.actor }}
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
+      
+      - run: ls 
+      - run: ls ./SPARQL-Validator/

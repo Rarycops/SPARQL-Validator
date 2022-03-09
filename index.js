@@ -2,6 +2,7 @@ const core =  require('@actions/core');
 const github = require('@actions/github');
 const { http, https } = require('follow-redirects');
 const url = require('url');
+const fs = require('fs');
 
 async function main() {
     try {
@@ -10,8 +11,27 @@ async function main() {
         const repo = core.getInput('repo', { required: true });
         const pr_number = core.getInput('pr_number', { required: true });
         const token = core.getInput('token', { required: true });
+		const actor = core.getInput('actor', { required: true });
         const graph_uri = core.getInput('graph_uri', { required: false });
 		const format = core.getInput('format', { required: false });
+
+		let output_format;
+		switch (format) {
+			case 'application/json':
+				output_format = '.json';
+				break;
+			case 'application/javascript':
+				output_format = '.js';
+				break;
+			case 'application/turtle':
+				output_format = '.ttl';
+				break;
+			case 'text/plain':
+				output_format = '.txt';
+				break;
+			default:
+				output_format = '.html';
+		}
 
 		console.log(format);
 
@@ -28,10 +48,15 @@ async function main() {
 		let error = false;
         let files = false;
 
+		// Creting the folther for the files
+		fs.mkdirSync('./SPARQL-Validator', { recursive: true })
+
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
 
 			response = response + '# The file with name: ' + file.filename + '\n---\n'
+
+			console.log(file);
 
             // if the file is a sparql file we start the validation
             if (file_extension == 'sparql'){
@@ -44,6 +69,13 @@ async function main() {
 					error = true;
 				}
 				response = response + '```\n ' + llamada + ' \n```\n\n';
+				//Creating the file
+				fs.writeFile('./SPARQL-Validator/' + actor + '-' + file.filename.split('.')[0] + output_format, llamada, err => {
+					if (err) {
+						core.setFailed(error.message);
+					}
+				})
+
             }
         }
          if (files){

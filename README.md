@@ -20,6 +20,8 @@ jobs:
 
       - run: npm i follow-redirects
       
+      - run: npm i fs
+      
       - name: Checkout
         uses: actions/checkout@v2
       
@@ -31,6 +33,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          actor: ${{ github.actor }}
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
 ```
@@ -43,6 +46,8 @@ The repository name, it is taken from `${{ github.event.repository.name }}`.
 The pull request number, it is taken from `${{ github.event.number }}`. 
 ### `token`
 The account acces token, it is taken from `${{ secrets.GITHUB_TOKEN }}`. 
+### `actor`
+The account that created the pull request, it is taken from `${{ github.actor }}`. 
 ### `graph_uri`(optional)
 The graph_uri for the [dbpedia](https://dbpedia.org) query. 
 ### `format`(optional)
