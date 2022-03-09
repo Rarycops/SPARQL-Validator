@@ -14,7 +14,7 @@ async function main() {
 		const actor = core.getInput('actor', { required: true });
         const graph_uri = core.getInput('graph_uri', { required: false });
 		const format = core.getInput('format', { required: false });
-		let path = core.getInput('path', { required: false });
+		const path = core.getInput('path', { required: false });
 
 		let output_format;
 		switch (format) {
@@ -46,6 +46,7 @@ async function main() {
 		let response = '';
 		let err = false;
         let files = false;
+		let fnl_path; 
 
         for (const file of changedFiles) {
             const fle = file.filename.split('.');
@@ -60,14 +61,13 @@ async function main() {
 				const array_res = llamada.toString().split(" ");
 				
 				if (!path)
-					path = fle.join('/') + '-';
-				else
-				{
+					fnl_path = fle.join('/') + '-';
+				else{
 					fs.mkdirSync('./' + path + '/', { recursive: true })
-					path = path + '/' + fle.join('/').split('/').pop() + '-';
+					fnl_path = path + '/' + fle.join('/').split('/').pop() + '-';
 				}
 
-				console.log(path);
+				console.log(fnl_path);
 
 				if (array_res[2] == 'Error'){
 					response = response + '# The file with name: ' + file.filename + '\n---\n' + '```\n ' + llamada + ' \n```\n\n';
@@ -75,7 +75,7 @@ async function main() {
 				}
 				else{
 					//Creating the file
-					fs.writeFile('./' + path + actor + output_format, llamada, err => {
+					fs.writeFile('./' + fnl_path + actor + output_format, llamada, err => {
 						if (err) {
 							core.setFailed(error.message);
 						}
