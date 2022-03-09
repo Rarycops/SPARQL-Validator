@@ -13,6 +13,8 @@ async function main() {
         const graph_uri = core.getInput('graph_uri', { required: false });
 		const format = core.getInput('format', { required: false });
 
+		console.log(format);
+
         // Instance of Octokit to call the API
         const octokit = new github.getOctokit(token);
 
@@ -92,7 +94,7 @@ function get_promise(url) {
 }
 
 // function returns a Promise with a query from dBpedia
-function get_query(graph_uri, query,format) {
+function get_query(graph_uri, query, format) {
 	const requestUrl = url.parse(url.format({
 										protocol: 'https',
 										hostname: 'dbpedia.org',
