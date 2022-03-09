@@ -31,7 +31,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          default_graph_uri: "http://dbpedia.org"
+          graph_uri: "http://dbpedia.org"
 ```
 ## Inputs
 ### `owner`
@@ -42,5 +42,12 @@ The repository name, it is taken from `${{ github.event.repository.name }}`.
 The pull request number, it is taken from `${{ github.event.number }}`. 
 ### `token`
 The account acces token, it is taken from `${{ secrets.GITHUB_TOKEN }}`. 
-### `default_graph_uri`(optional)
-The default_graph_uri for the [dbpedia](https://dbpedia.org) query. 
+### `graph_uri`(optional)
+The graph_uri for the [dbpedia](https://dbpedia.org) query. 
+### `format`(optional)
+The format of the output of the query.
+- default --> `html`
+- `aplication/json` --> `json` 
+- `aplication/javascript` --> `javascript`
+- `aplication/turtle` --> `turtle`
+- `text/plain` --> `N-Triplets`

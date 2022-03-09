@@ -10,11 +10,8 @@ async function main() {
         const repo = core.getInput('repo', { required: true });
         const pr_number = core.getInput('pr_number', { required: true });
         const token = core.getInput('token', { required: true });
-        let default_graph_uri = core.getInput('default_graph_uri', { required: false });
-
-        if (typeof default_graph_uri !== 'undefined') {
-            default_graph_uri = `http://dbpedia.org`;
-        }
+        const graph_uri = core.getInput('graph_uri', { required: false });
+		const format = core.getInput('format', { required: false });
 
         // Instance of Octokit to call the API
         const octokit = new github.getOctokit(token);
@@ -39,7 +36,7 @@ async function main() {
                 files = true;
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
-				const llamada = await makeSynchronousqueryRequest(default_graph_uri, contents_request);
+				const llamada = await makeSynchronousqueryRequest(graph_uri, contents_request, format);
 				const array_res = llamada.toString().split(" ");
 				 if (array_res[2] == 'Error'){
 					error = true;
@@ -95,14 +92,15 @@ function get_promise(url) {
 }
 
 // function returns a Promise with a query from dBpedia
-function get_query(default_graph_uri, query) {
+function get_query(graph_uri, query,format) {
 	const requestUrl = url.parse(url.format({
 										protocol: 'https',
 										hostname: 'dbpedia.org',
 										pathname: '/sparql',
 										query: {
-											'default-graph-uri': default_graph_uri,
-											query: query
+											'default-graph-uri': graph_uri,
+											query: query,
+											format: format
 										}
 									}));
 
@@ -146,9 +144,9 @@ async function makeSynchronousRequest(url) {
 }
 
 // async function to make http query request
-async function makeSynchronousqueryRequest(default_graph_uri, query) {
+async function makeSynchronousqueryRequest(graph_uri, query, format) {
 	try {
-		let http_promise = get_query(default_graph_uri, query);
+		let http_promise = get_query(graph_uri, query, format);
 		let response_body = await http_promise;
 
 		return response_body;

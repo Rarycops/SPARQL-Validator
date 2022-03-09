@@ -14,9 +14,12 @@ inputs:
   token:
     description: 'The token to use to access the GitHub API'
     required: true 
-  default_graph_uri:
+  graph_uri:
     description: 'The dBpedia uri that will be use for the querys'
     required: false 
+  format:
+    description: 'The query format output'
+    required: false
 
 runs:
   using: 'node16'

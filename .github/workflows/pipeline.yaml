@@ -23,3 +23,5 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          graph_uri: 'http://dbpedia.org'
+          format: 'aplication/json'
