@@ -30,6 +30,15 @@ async function main() {
 			case 'text/plain':
 				output_format = '.txt';
 				break;
+			case 'CSV':
+				output_format = '.csv';
+				break;
+			case 'XML':
+				output_format = '.xml';
+				break;
+			case 'RDF':
+				output_format = '.rdf';
+				break;
 			default:
 				output_format = '.html';
 		}

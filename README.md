@@ -13,9 +13,9 @@ on:
     branches: [master]
 
 jobs:    
-  validate:
+  [name]:
     runs-on: ubuntu-latest
-    name: SPARQL-Validator
+    name: [name]
     steps:
 
       - run: npm i follow-redirects
@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: sparql-validator
-        uses: Rarycops/Sparql-Validator@v1.0.0
+        uses: Rarycops/SPARQL-Validator@v1.0.0
         id: 'sparql-validator'
         with:
           owner: ${{ github.repository_owner }}
@@ -34,9 +34,9 @@ jobs:
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
           actor: ${{ github.actor }}
-          graph_uri: 'http://dbpedia.org'
-          format: 'application/json'
-          path: 'SPARQL-Validator/outputs'
+          graph_uri: [uri]
+          format: [format]
+          path: [path]
 
       - name: update files and push to remote
         run: |
@@ -65,11 +65,18 @@ The format of the output of the query.
 
 | Option | Format |
 | :----------- | :----------- |
-| default | `html` |
+| `default` | `html` |
 | `application/json` | `json` |
 | `application/javascript` | `javascript` |
 | `application/turtle` | `turtle` |
 | `text/plain` | `N-Triplets` |
+| `CSV` | `csv` |
+| `Spreadsheet` | `html` |
+| `XML` | `xml` |
+| `RDF` | `rdf` |
 ### `path`(optional)
-The path to store the outputs of the querys, `[path]/[filename]-[actor].[output]`.
-The default path is the path where the querys are stored.
+The `default` path is the path where the files with the querys are stored.
+
+The path in the parameter is set, it should look like: `SPARQL-Validator/outputs`
+
+The path to store the outputs of the querys will look like, `[path]/[filename]-[actor].[output]`.
