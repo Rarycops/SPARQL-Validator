@@ -54,9 +54,13 @@ async function main() {
 		fs.mkdirSync('./SPARQL-Validator/' + actor, { recursive: true })
 
         for (const file of changedFiles) {
-            const file_extension = file.filename.split('.').pop();
+            const file_extension = file.filename.split('.');
+
+			console.log(file_extension[0])
+			console.log(file_extension[1])
+
             // if the file is a sparql file we start the validation
-            if (file_extension == 'sparql'){
+            if (file_extension[1] == 'sparql'){
                 files = true;
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
@@ -69,7 +73,7 @@ async function main() {
 				}
 				else{
 					//Creating the file
-					fs.writeFile('./' + path + '/' + actor + '/' + file.filename.split('.') + output_format, llamada, err => {
+					fs.writeFile('./' + path + '/' + actor + '/' + file_extension[0] + output_format, llamada, err => {
 						if (err) {
 							core.setFailed(error.message);
 						}
