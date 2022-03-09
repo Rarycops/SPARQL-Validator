@@ -31,7 +31,8 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          graph_uri: "http://dbpedia.org"
+          graph_uri: 'http://dbpedia.org'
+          format: 'application/json'
 ```
 ## Inputs
 ### `owner`
@@ -50,7 +51,7 @@ The format of the output of the query.
 | Option | Format |
 | :----------- | :----------- |
 | default | html |
-| `aplication/json` | `json` |
-| `aplication/javascript` | `javascript` |
-| `aplication/turtle` | `turtle` |
+| `application/json` | `json` |
+| `application/javascript` | `javascript` |
+| `application/turtle` | `turtle` |
 | `text/plain` | `N-Triplets` |
