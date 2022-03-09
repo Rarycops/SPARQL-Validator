@@ -64,7 +64,7 @@ async function main() {
 				else
 				{
 					fs.mkdirSync('./' + path + '/', { recursive: true })
-					path = path + '/' + fle.pop() + '-';
+					path = path + '/' + fle.join('/').split('/').pop() + '-';
 				}
 
 				console.log(path);
