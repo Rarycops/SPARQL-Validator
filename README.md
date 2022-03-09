@@ -36,7 +36,7 @@ jobs:
           actor: ${{ github.actor }}
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
-          path: 'SPARQL-Validator'
+          path: 'SPARQL-Validator/outputs'
 ```
 ## Inputs
 ### `owner`

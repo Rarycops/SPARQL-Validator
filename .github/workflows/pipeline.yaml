@@ -31,4 +31,4 @@ jobs:
           path: 'SPARQL-Validator'
 
       - run: ls
-      - run: ls ./SPARQL-Validator/
+      - run: ls ./SPARQL-Validator/Rarycops
