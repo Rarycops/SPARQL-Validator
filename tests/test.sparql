@@ -1,1 +1,1 @@
-select dixstinct ?Concept where {[] a ?Concept} LIMIT 4
+select dixstinct ?Concept where {[] a ?Concept} LIMIT 3
