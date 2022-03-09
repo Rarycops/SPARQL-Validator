@@ -1,2 +1,1 @@
-this is a sparql file.
-test :)
+select dixstinct ?Concept where {[] a ?Concept} LIMIT 3
