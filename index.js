@@ -49,9 +49,13 @@ async function main() {
 		let response = '';
 		let error = false;
         let files = false;
+		
+		console.log('antes mkdir')
 
 		// Creting the folther for the files
 		fs.mkdirSync('./SPARQL-Validator/' + actor, { recursive: true })
+
+		console.log('antes for')
 
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
@@ -77,7 +81,10 @@ async function main() {
 				}
             }
         }
-         if (files && error){
+
+		console.log('no error primo')
+
+        if (files && error){
             await octokit.rest.issues.createComment({
                 owner,
                 repo,
