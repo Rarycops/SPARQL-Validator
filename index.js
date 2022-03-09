@@ -15,9 +15,6 @@ async function main() {
         const graph_uri = core.getInput('graph_uri', { required: false });
 		const format = core.getInput('format', { required: false });
 		let path = core.getInput('path', { required: false });
-		
-		if (!path)
-			path = 'SPARQL-Validator';
 
 		let output_format;
 		switch (format) {
@@ -54,27 +51,31 @@ async function main() {
 		fs.mkdirSync('./SPARQL-Validator/' + actor, { recursive: true })
 
         for (const file of changedFiles) {
-            const file_extension = file.filename.split('.');
-
-			console.log(file_extension)
-			console.log(file_extension[0])
-			console.log(file_extension[1])
+            const fle = file.filename.split('.');
+			const file_extension = fle.pop();
 
             // if the file is a sparql file we start the validation
-            if (file_extension[1] == 'sparql'){
+            if (file_extension == 'sparql'){
                 files = true;
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
 				const llamada = await makeSynchronousqueryRequest(graph_uri, contents_request, format);
 				const array_res = llamada.toString().split(" ");
 				
+				if (!path)
+					path = fle.join('/') + '-';
+				else
+					path = path + fle.pop() + '-';
+
+				console.log(path);
+
 				if (array_res[2] == 'Error'){
 					response = response + '# The file with name: ' + file.filename + '\n---\n' + '```\n ' + llamada + ' \n```\n\n';
 					err = true;
 				}
 				else{
 					//Creating the file
-					fs.writeFile('./' + path + '/' + actor + '/' + 'a'/*file_extension[0]*/ + output_format, llamada, err => {
+					fs.writeFile('./' + path + actor + output_format, llamada, err => {
 						if (err) {
 							core.setFailed(error.message);
 						}

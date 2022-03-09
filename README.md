@@ -62,5 +62,5 @@ The format of the output of the query.
 | `application/turtle` | `turtle` |
 | `text/plain` | `N-Triplets` |
 ### `path`(optional)
-The path to store the outputs of the querys, `[path]/actor/[files]`.
-The default path is `SPARQL-Validator`
+The path to store the outputs of the querys, `[path]/[filename]-[actor].[output]`.
+The default path is the path where the querys are stored.

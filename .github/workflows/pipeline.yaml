@@ -32,3 +32,4 @@ jobs:
 
       - run: ls
       - run: ls ./SPARQL-Validator/Rarycops
+      - run: ls ./tests/
