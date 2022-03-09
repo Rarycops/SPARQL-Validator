@@ -1,5 +1,5 @@
 name: 'sparql-validator'
-description: 'validates & run a SPARQL file'
+description: 'validates & run a SPARQL query contained in a file'
 
 inputs:
   owner:
@@ -18,7 +18,7 @@ inputs:
     description: 'The user that activated the pull request'
     required: true 
   graph_uri:
-    description: 'The dBpedia uri that will be use for the querys'
+    description: 'The uri of the RDF graph that will be used in the SPARQL endpoint'
     required: false 
   format:
     description: 'The query format output'
