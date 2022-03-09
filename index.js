@@ -91,10 +91,12 @@ async function main() {
                 issue_number: pr_number,
                 body:  response 
             });
-
+			console.log('el if maldito wei')
             core.setFailed(response);
             
         }
+
+		console.log('illo el final wtf')
 
     }
     catch (error){
