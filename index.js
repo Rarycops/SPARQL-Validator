@@ -56,6 +56,7 @@ async function main() {
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.');
 
+			console.log(file_extension)
 			console.log(file_extension[0])
 			console.log(file_extension[1])
 
@@ -73,7 +74,7 @@ async function main() {
 				}
 				else{
 					//Creating the file
-					fs.writeFile('./' + path + '/' + actor + '/' + file_extension[0] + output_format, llamada, err => {
+					fs.writeFile('./' + path + '/' + actor + '/' + 'a'/*file_extension[0]*/ + output_format, llamada, err => {
 						if (err) {
 							core.setFailed(error.message);
 						}
