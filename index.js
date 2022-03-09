@@ -69,7 +69,7 @@ async function main() {
 				}
 				else{
 					//Creating the file
-					fs.writeFile('./' + path + '/' + actor + '/' + file.filename.split('.')[0] + output_format, llamada, err => {
+					fs.writeFile('./' + path + '/' + actor + '/' /*+ file.filename.split('.')[0]*/+ 'a' + output_format, llamada, err => {
 						if (err) {
 							console.log('el if maldito wei')
 							core.setFailed(error.message);
