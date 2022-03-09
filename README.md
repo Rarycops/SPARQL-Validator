@@ -36,6 +36,7 @@ jobs:
           actor: ${{ github.actor }}
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
+          path: 'SPARQL-Validator'
 ```
 ## Inputs
 ### `owner`
@@ -55,8 +56,11 @@ The format of the output of the query.
 
 | Option | Format |
 | :----------- | :----------- |
-| default | html |
+| default | `html` |
 | `application/json` | `json` |
 | `application/javascript` | `javascript` |
 | `application/turtle` | `turtle` |
 | `text/plain` | `N-Triplets` |
+### `path`(optional)
+The path to store the outputs of the querys, `[path]/actor/[files]`.
+The default path is `SPARQL-Validator`

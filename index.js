@@ -14,6 +14,10 @@ async function main() {
 		const actor = core.getInput('actor', { required: true });
         const graph_uri = core.getInput('graph_uri', { required: false });
 		const format = core.getInput('format', { required: false });
+		let path = core.getInput('path', { required: false });
+		
+		if (!path)
+			path = 'SPARQL-Validator';
 
 		let output_format;
 		switch (format) {
@@ -65,7 +69,7 @@ async function main() {
 				}
 				else{
 					//Creating the file
-					fs.writeFile('./SPARQL-Validator/' + actor + '/' + file.filename.split('.')[0] + output_format, llamada, err => {
+					fs.writeFile('./' + path + '/' + actor + '/' + file.filename.split('.')[0] + output_format, llamada, err => {
 						if (err) {
 							core.setFailed(error.message);
 						}
@@ -73,7 +77,7 @@ async function main() {
 				}
             }
         }
-         if (files){
+         if (files && error){
             await octokit.rest.issues.createComment({
                 owner,
                 repo,
@@ -81,9 +85,8 @@ async function main() {
                 body:  response 
             });
 
-            if(error){
-                core.setFailed(response);
-            }
+            core.setFailed(response);
+            
         }
 
     }

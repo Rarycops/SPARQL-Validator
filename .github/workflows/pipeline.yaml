@@ -28,3 +28,7 @@ jobs:
           actor: ${{ github.actor }}
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
+          path: 'SPARQL-Validator'
+      
+      - run: ls
+      - run: ls ./SPARQL-Validator
