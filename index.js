@@ -47,15 +47,11 @@ async function main() {
         });
 
 		let response = '';
-		let error = false;
+		let err = false;
         let files = false;
-		
-		console.log('antes mkdir')
 
 		// Creting the folther for the files
 		fs.mkdirSync('./SPARQL-Validator/' + actor, { recursive: true })
-
-		console.log('antes for')
 
         for (const file of changedFiles) {
             const file_extension = file.filename.split('.').pop();
@@ -69,12 +65,13 @@ async function main() {
 				
 				if (array_res[2] == 'Error'){
 					response = response + '# The file with name: ' + file.filename + '\n---\n' + '```\n ' + llamada + ' \n```\n\n';
-					error = true;
+					err = true;
 				}
 				else{
 					//Creating the file
 					fs.writeFile('./' + path + '/' + actor + '/' + file.filename.split('.')[0] + output_format, llamada, err => {
 						if (err) {
+							console.log('el if maldito wei')
 							core.setFailed(error.message);
 						}
 					})
@@ -82,21 +79,16 @@ async function main() {
             }
         }
 
-		console.log('no error primo')
-
-        if (files && error){
+        if (files && err){
             await octokit.rest.issues.createComment({
                 owner,
                 repo,
                 issue_number: pr_number,
                 body:  response 
             });
-			console.log('el if maldito wei')
             core.setFailed(response);
             
         }
-
-		console.log('illo el final wtf')
 
     }
     catch (error){
