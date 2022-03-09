@@ -37,4 +37,7 @@ jobs:
 
           git add -A
           git commit -m "Output ${{ github.actor }}"
-          git push
+          git branch bot-branch
+          git checkout master
+          git merge bot-branch
+          git push origin master
