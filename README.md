@@ -46,8 +46,11 @@ The account acces token, it is taken from `${{ secrets.GITHUB_TOKEN }}`.
 The graph_uri for the [dbpedia](https://dbpedia.org) query. 
 ### `format`(optional)
 The format of the output of the query.
-- default --> `html`
-- `aplication/json` --> `json` 
-- `aplication/javascript` --> `javascript`
-- `aplication/turtle` --> `turtle`
-- `text/plain` --> `N-Triplets`
+
+| Option | Format |
+| :----------- | :----------- |
+| default | html |
+| `aplication/json` | `json` |
+| `aplication/javascript` | `javascript` |
+| `aplication/turtle` | `turtle` |
+| `text/plain` | `N-Triplets` |
