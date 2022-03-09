@@ -67,8 +67,6 @@ async function main() {
 					fnl_path = path + '/' + fle.join('/').split('/').pop() + '-';
 				}
 
-				console.log(fnl_path);
-
 				if (array_res[2] == 'Error'){
 					response = response + '# The file with name: ' + file.filename + '\n---\n' + '```\n ' + llamada + ' \n```\n\n';
 					err = true;
