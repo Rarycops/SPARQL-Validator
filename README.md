@@ -44,7 +44,7 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add -A
-          git commit -m "Output ${{ github.actor }} - ${{ github.event.number }}"
+          git commit -m "Output ${{ github.actor }} - ${{ github.event.number }}" --allow-empty
           git push origin HEAD:[master] --force
 ```
 ## Inputs
