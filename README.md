@@ -59,7 +59,7 @@ The account acces token, it is taken from `${{ secrets.GITHUB_TOKEN }}`.
 ### `actor`
 The account that created the pull request, it is taken from `${{ github.actor }}`. 
 ### `graph_uri`(optional)
-The graph_uri for the [dbpedia](https://dbpedia.org) query. 
+The graph_uri for the SPARQL query. 
 ### `format`(optional)
 The format of the output of the query.
 
