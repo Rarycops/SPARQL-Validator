@@ -29,18 +29,12 @@ jobs:
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
           path: 'SPARQL-Validator'
-      
-      - name: Extract branch name
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
 
       - name: update files and push to remote
         run: |
-          echo eng:${{ steps.extract_branch.outputs.branch }}
-          echo ${{ github.head_ref }}
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          #git add -A
-          #git commit -m "Output ${{ github.actor }} - ${{ github.event.number }}" --allow-empty
-          #git push origin HEAD:main --force
+          git add -A
+          git commit -m "Output ${{ github.actor }} - ${{ github.event.number }}" --allow-empty
+          git push origin HEAD:${{ github.head_ref }} --force
