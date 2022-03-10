@@ -38,14 +38,14 @@ jobs:
           format: [format]
           path: [path]
 
-      - name: update files and push to remote
+      - name: update files and push to branch
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add -A
           git commit -m "Output ${{ github.actor }} - ${{ github.event.number }}" --allow-empty
-          git push origin HEAD:[master] --force
+          git push origin HEAD:${{ github.head_ref }} --force
 ```
 ## Inputs
 ### `owner`
