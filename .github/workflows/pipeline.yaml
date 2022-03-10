@@ -32,9 +32,10 @@ jobs:
 
       - name: update files and push to remote
         run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -A
-          git commit -m "Output ${{ github.actor }} - ${{ github.event.number }}" --allow-empty
-          git push origin HEAD:main --force
+          #git add -A
+          #git commit -m "Output ${{ github.actor }} - ${{ github.event.number }}" --allow-empty
+          #git push origin HEAD:main --force
