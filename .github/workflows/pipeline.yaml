@@ -32,7 +32,9 @@ jobs:
 
       - name: update files and push to remote
         run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})" > branch
+          echo ${{ branch }}
+          echo ${{ github.head_ref }}
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
