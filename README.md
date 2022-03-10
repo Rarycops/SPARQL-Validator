@@ -77,6 +77,6 @@ The format of the output of the query.
 ### `path`(optional)
 The `default` path is the path where the files with the querys are stored.
 
-The path in the parameter is set, it should look like: `SPARQL-Validator/outputs`
+If the path in the parameter is set, it should look like: `SPARQL-Validator/outputs`
 
 The path to store the outputs of the querys will look like, `[path]/[filename]-[actor].[output]`.
