@@ -39,6 +39,7 @@ jobs:
           path: [path]
 
       - name: update files and push to branch
+        if: always()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
