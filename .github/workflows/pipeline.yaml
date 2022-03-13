@@ -28,7 +28,7 @@ jobs:
           actor: ${{ github.actor }}
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
-          path: ''
+          path: 'delete-test/path'
 
       - name: update files and push to branch
         run: |
