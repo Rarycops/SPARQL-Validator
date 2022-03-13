@@ -26,6 +26,7 @@ jobs:
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
           actor: ${{ github.actor }}
+          endpoint: 'dbpedia.org/sparql'
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
           path: 'delete-test/path'

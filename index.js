@@ -12,6 +12,7 @@ async function main() {
         const pr_number = core.getInput('pr_number', { required: true });
         const token = core.getInput('token', { required: true });
 		const actor = core.getInput('actor', { required: true });
+		const endpoint = core.getInput('endpoint', { required: true });
         const graph_uri = core.getInput('graph_uri', { required: false });
 		const format = core.getInput('format', { required: false });
 		const path = core.getInput('path', { required: false });
@@ -66,7 +67,7 @@ async function main() {
                 files = true;
                 const contents_url = file.raw_url;
                 const contents_request = await makeSynchronousRequest(contents_url);
-				const llamada = await makeSynchronousqueryRequest(graph_uri, contents_request, format);
+				const llamada = await makeSynchronousqueryRequest(graph_uri, contents_request, format, endpoint);
 				const array_res = llamada.toString().split(" ");
 				
 				if (!path)
@@ -135,11 +136,11 @@ function get_promise(url) {
 }
 
 // function returns a Promise with a query from dBpedia
-function get_query(graph_uri, query, format) {
+function get_query(graph_uri, query, format, main, path) {
 	const requestUrl = url.parse(url.format({
 										protocol: 'https',
-										hostname: 'dbpedia.org',
-										pathname: '/sparql',
+										hostname: main,
+										pathname: path,
 										query: {
 											'default-graph-uri': graph_uri,
 											query: query,
@@ -187,9 +188,12 @@ async function makeSynchronousRequest(url) {
 }
 
 // async function to make http query request
-async function makeSynchronousqueryRequest(graph_uri, query, format) {
+async function makeSynchronousqueryRequest(graph_uri, query, format, endpoint) {
 	try {
-		let http_promise = get_query(graph_uri, query, format);
+		let main = endpoint.plit('/')[0];
+		let path = endpoint.split(/\/(.+)/)[1]
+
+		let http_promise = get_query(graph_uri, query, format, main, path);
 		let response_body = await http_promise;
 
 		return response_body;

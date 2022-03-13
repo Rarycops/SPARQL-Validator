@@ -34,6 +34,7 @@ jobs:
           pr_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
           actor: ${{ github.actor }}
+          endpoint: 'dbpedia.org/sparql'
           graph_uri: [uri]
           format: [format]
           path: [path]
@@ -59,6 +60,8 @@ The pull request number, it is taken from `${{ github.event.number }}`.
 The account acces token, it is taken from `${{ secrets.GITHUB_TOKEN }}`. 
 ### `actor`
 The account that created the pull request, it is taken from `${{ github.actor }}`. 
+### `endpoint`
+The endpoint for the SPARQL querys, without `https://`.
 ### `graph_uri`(optional)
 The graph_uri for the SPARQL query. 
 ### `format`(optional)
