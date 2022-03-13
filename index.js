@@ -71,7 +71,7 @@ async function main() {
 				
 				if (!path)
 					fnl_path = fle.join('/') + '-';
-				else{
+				else if (path != 'None'){
 					fs.mkdirSync('./' + path + '/', { recursive: true })
 					fnl_path = path + '/' + fle.join('/').split('/').pop() + '-';
 				}
@@ -80,7 +80,7 @@ async function main() {
 					response = response + '# The file with name: ' + file.filename + '\n---\n' + '```\n ' + llamada + ' \n```\n\n';
 					err = true;
 				}
-				else{
+				else if (path != 'None'){
 					//Creating the file
 					fs.writeFile('./' + fnl_path + actor + output_format, llamada, err => {
 						if (err) {
@@ -98,10 +98,8 @@ async function main() {
                 issue_number: pr_number,
                 body:  response 
             });
-            core.setFailed(response);
-            
+            core.setFailed(response);         
         }
-
     }
     catch (error){
         core.setFailed(error.message);
