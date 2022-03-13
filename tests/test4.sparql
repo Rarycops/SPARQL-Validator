@@ -1,1 +1,1 @@
-sedlect distinct ?Concept where {[] a ?Concept} LIMIT 15
+select distinct ?Concept where {[] a ?Concept} LIMIT 15
