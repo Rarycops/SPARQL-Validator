@@ -1,0 +1,18 @@
+
+{ "head": { "link": [], "vars": ["Concept"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [
+    { "Concept": { "type": "uri", "value": "http://www.w3.org/2002/07/owl#FunctionalProperty" }},
+    { "Concept": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" }},
+    { "Concept": { "type": "uri", "value": "http://www.w3.org/2002/07/owl#Thing" }},
+    { "Concept": { "type": "uri", "value": "http://www.w3.org/2002/07/owl#Class" }},
+    { "Concept": { "type": "uri", "value": "http://www.w3.org/2002/07/owl#Ontology" }},
+    { "Concept": { "type": "uri", "value": "http://www.w3.org/2002/07/owl#ObjectProperty" }},
+    { "Concept": { "type": "uri", "value": "http://www.w3.org/2002/07/owl#DatatypeProperty" }},
+    { "Concept": { "type": "uri", "value": "http://xmlns.com/foaf/0.1/Organization" }},
+    { "Concept": { "type": "uri", "value": "http://dbpedia.org/ontology/Company" }},
+    { "Concept": { "type": "uri", "value": "http://xmlns.com/foaf/0.1/Person" }},
+    { "Concept": { "type": "uri", "value": "http://dbpedia.org/ontology/Activity" }},
+    { "Concept": { "type": "uri", "value": "http://dbpedia.org/ontology/Name" }},
+    { "Concept": { "type": "uri", "value": "http://dbpedia.org/ontology/Person" }},
+    { "Concept": { "type": "uri", "value": "http://dbpedia.org/ontology/Actor" }},
+    { "Concept": { "type": "uri", "value": "http://dbpedia.org/ontology/Place" }} ] } }
