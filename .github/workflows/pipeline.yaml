@@ -28,7 +28,7 @@ jobs:
           actor: ${{ github.actor }}
           graph_uri: 'http://dbpedia.org'
           format: 'application/json'
-          path: 'SPARQL-Validator'
+          path: 'None'
 
       - name: update files and push to branch
         run: |
