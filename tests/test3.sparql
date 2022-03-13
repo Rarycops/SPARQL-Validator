@@ -1,0 +1,1 @@
+select distifnct ?Concept where {[] a ?Concept} LIMIT 13
