@@ -190,7 +190,7 @@ async function makeSynchronousRequest(url) {
 // async function to make http query request
 async function makeSynchronousqueryRequest(graph_uri, query, format, endpoint) {
 	try {
-		let main = endpoint.plit('/')[0];
+		let main = endpoint.split('/')[0];
 		let path = endpoint.split(/\/(.+)/)[1]
 
 		let http_promise = get_query(graph_uri, query, format, main, path);
