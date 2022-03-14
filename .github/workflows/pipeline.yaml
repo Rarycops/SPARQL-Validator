@@ -8,12 +8,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     name: test pipeline
-    steps:
-
-      - run: npm i follow-redirects
-
-      - run: npm i fs
-      
+    steps: 
       - name: checkout
         uses: actions/checkout@v2
       
